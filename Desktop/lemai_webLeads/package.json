@@ -1,0 +1,26 @@
+{
+  "name": "lemai_web_leads",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "worker:otp": "node workers/otp.worker.js",
+    "worker:lead": "node workers/lead.worker.js"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "axios": "^1.13.2",
+    "bullmq": "^5.66.2",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.2.1",
+    "helmet": "^8.1.0",
+    "ioredis": "^5.8.2",
+    "morgan": "^1.10.1",
+    "mysql2": "^3.16.0",
+    "nodemon": "^3.1.11",
+    "sequelize": "^6.37.7"
+  }
+}
