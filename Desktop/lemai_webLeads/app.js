@@ -4,7 +4,7 @@ import morgan from "morgan";
 import rateLimiter from "./middlewares/rateLimiter.js";
 import routes from "./routes/index.js";
 import cors from "cors";
-import bullBoard from "./dashboard/bullBoard.js";
+import bullBoard from "./dashboard/bull.board.js";
 
 const app = express();
 
