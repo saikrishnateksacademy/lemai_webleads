@@ -18,6 +18,7 @@
     "ajv-formats": "^3.0.1",
     "bull-board": "^1.7.2",
     "bullmq": "^5.66.4",
+    "concurrently": "^9.2.1",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",

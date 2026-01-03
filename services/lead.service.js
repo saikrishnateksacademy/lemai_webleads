@@ -47,6 +47,7 @@ export const saveAndQueueLead = async (data) => {
 
             company_name: data.company_name || null,
             city: data.city || null,
+            source_id: data.source_id,
 
             sales_team_size: salesMap[data.sales_team_size] || null,
             heard_from: heardMap[data.heard_from] || null,
@@ -69,6 +70,7 @@ export const saveAndQueueLead = async (data) => {
 
             company_name: data.company_name || null,
             city: data.city || null,
+            source_id: data.source_id,
 
             sales_team_size: salesMap[data.sales_team_size] || null,
             heard_from: heardMap[data.heard_from] || null,
