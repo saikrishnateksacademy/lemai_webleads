@@ -6,7 +6,6 @@ async function initDB() {
     await sequelize.authenticate();
     console.log("MySQL Connected via Sequelize");
 
-    await sequelize.sync();  // auto creates table if not exists
   } catch (err) {
     console.error("DB connection failed", err);
     process.exit(1);

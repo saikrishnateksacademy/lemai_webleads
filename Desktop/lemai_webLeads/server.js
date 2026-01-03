@@ -4,6 +4,9 @@ import "./utils/queue.js";
 import { initDB } from "./models/index.js";
 import './models/lead.model.js';
 
+
+// Review#1: Run App in HTTP Environment
+// Review#1: Use HTTP Native events to handle Promise Rejections and Unhandled Exceptions
 const PORT = process.env.PORT || 5000;
 
 (async () => {

@@ -1,6 +1,7 @@
 import redis from "./redis.js";
 
 const OTP_PREFIX = "otp:";
+const OTP_COOLDOWN_PREFIX = "otp:cooldown:";
 
 export const saveOtp = async (email, code) => {
   const payload = JSON.stringify({
@@ -9,7 +10,11 @@ export const saveOtp = async (email, code) => {
     verified: false
   });
 
-  await redis.setex(`${OTP_PREFIX}${email}`, 300, payload); // 5 mins
+  // OTP valid for 5 minutes
+  await redis.setex(`${OTP_PREFIX}${email}`, 300, payload);
+
+  // Cooldown: 30 seconds before resend allowed
+  await redis.setex(`${OTP_COOLDOWN_PREFIX}${email}`, 30, "1");
 };
 
 export const getOtp = async (email) => {
@@ -23,4 +28,11 @@ export const updateOtp = async (email, payload) => {
 
 export const deleteOtp = async (email) => {
   await redis.del(`${OTP_PREFIX}${email}`);
+  await redis.del(`${OTP_COOLDOWN_PREFIX}${email}`);
+};
+
+// NEW: check cooldown
+export const isOtpInCooldown = async (email) => {
+  const cooldown = await redis.get(`${OTP_COOLDOWN_PREFIX}${email}`);
+  return Boolean(cooldown);
 };
