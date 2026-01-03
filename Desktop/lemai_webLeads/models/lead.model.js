@@ -16,6 +16,8 @@ const Lead = sequelize.define(
         company_name: { type: DataTypes.STRING, allowNull: true },
         city: { type: DataTypes.STRING, allowNull: true },
 
+        source: {type: DataTypes.STRING, allowNull: true},
+
         sales_team_size: {
             type: DataTypes.ENUM(
                 "SIZE_0_5",
