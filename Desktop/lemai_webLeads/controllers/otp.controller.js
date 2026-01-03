@@ -3,6 +3,7 @@ import { sendOtpService, verifyOtpService } from "../services/otp.service.js";
 export const sendOtp = async (req, res) => {
   try {
     await sendOtpService(req.body.email);
+    console.log(`OTP sent to ${req.body.email}`);
 
     res.json({
       success: true,

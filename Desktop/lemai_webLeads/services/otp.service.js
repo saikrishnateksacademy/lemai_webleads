@@ -8,7 +8,7 @@ import {
 import { otpQueue } from "../utils/queue.js";
 
 
-// Review#1: Need to implement OTP Generation / Verification Login without storing the OTP in any persistant Storage or MemChad Storage
+// Review#1: Need to implement OTP Generation / Verification Login without storing the OTP in any persistant Storage or MemChad
 export const sendOtpService = async (email) => {
   // Cooldown check FIRST
   const inCooldown = await isOtpInCooldown(email);

@@ -3,6 +3,8 @@ import app from "./app.js";
 import "./utils/queue.js";
 import { initDB } from "./models/index.js";
 import './models/lead.model.js';
+import { startOtpWorker } from "./workers/otp.worker.js";
+import { startLeadWorker } from "./workers/lead.worker.js";
 
 
 // Review#1: Run App in HTTP Environment
@@ -14,6 +16,8 @@ const PORT = process.env.PORT || 5000;
         // Initialize DB (authenticate + create tables)
         await initDB();
         console.log("MySQL initialized");
+        startOtpWorker();
+        startLeadWorker();
 
         // Start Server
         app.listen(PORT, () => console.log("Server running on", PORT));

@@ -1,7 +1,7 @@
 import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
-import rateLimiter from "./middlewares/rateLimiter.js";
+//import rateLimiter from "./middlewares/rateLimiter.js";
 import routes from "./routes/index.js";
 import cors from "cors";
 import bullBoard from "./dashboard/bull.board.js";
@@ -12,7 +12,7 @@ app.use(express.json());
 // Review#1: Is Helmet Configured Properly?
 app.use(helmet());
 app.use(morgan("dev"));
-app.use(rateLimiter);
+//app.use(rateLimiter);
 app.use(cors({
   origin: [
     "http://127.0.0.1:5500",   
