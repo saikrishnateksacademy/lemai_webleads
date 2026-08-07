@@ -1,13 +1,13 @@
 import { Router } from "express";
-import otpRoutes from "./otp.routes.js";
-import leadRoutes from "./lead.routes.js";
-import infozitLeadRoutes from "./infozitLead.routes.js";
+import otpRoutes  from "./otp.routes.js";
+import siteRoutes from "./site.routes.js";
 
 const router = Router();
 
-// Versioning stays here. Centralized, clean, scalable.
+// OTP email verification
 router.use("/otp", otpRoutes);
-router.use("/leads", leadRoutes);
-router.use("/infozit-leads", infozitLeadRoutes);
+
+// Universal site lead endpoint: POST /api/v1/sites/:siteKey/leads
+router.use("/sites", siteRoutes);
 
 export default router;

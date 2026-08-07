@@ -1,23 +1,23 @@
 import sequelize from "../config/database.js";
-import Lead from "./lead.model.js";
 import Source from "./source.model.js";
-import InfozitWebsiteLead from "./infozIt-webleads.js";
+
+// Site Plugin Models 
+import LemaiLead from "../sites/lemai/model.js";
+import InfozitLead from "../sites/infozit/model.js";
 
 async function initDB() {
   try {
-    // 1️⃣ Test DB connection
     await sequelize.authenticate();
     console.log("MySQL Connected via Sequelize");
 
-    // 2️⃣ Drop & recreate all tables
+    // Syncs all defined models — creates tables if they don't exist
     await sequelize.sync();
-    console.log("sync done");
+    console.log("✅ DB sync complete");
 
   } catch (err) {
-    console.error(" DB connection failed");
-    console.error(err.message);
+    console.error("❌ DB connection failed:", err.message);
     process.exit(1);
   }
 }
 
-export { sequelize, Lead, Source, InfozitWebsiteLead, initDB };
+export { sequelize, Source, LemaiLead, InfozitLead, initDB };

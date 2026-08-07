@@ -10,7 +10,6 @@ import bullBoard from "./dashboard/bull.board.js";
 
 import "./utils/queue.js";
 import { initDB } from "./models/index.js";
-import "./models/lead.model.js";
 
 const app = express();
 
@@ -27,7 +26,8 @@ app.use(cors({
   origin: [
     "http://127.0.0.1:5500",
     "https://lemai.com",
-    "http://localhost:8080"
+    "http://localhost:8080",
+    "http://localhost:3000",
   ],
   methods: ["GET", "POST"],
   credentials: true

@@ -1,49 +1,42 @@
-// import "./config/env.js";
-// import app from "./app.js";
-// import "./utils/queue.js";
-// import { initDB } from "./models/index.js";
-// import './models/lead.model.js';
-
-
-// // Review#1: Run App in HTTP Environment
-// // Review#1: Use HTTP Native events to handle Promise Rejections and Unhandled Exceptions
-// const PORT = process.env.PORT || 5000;
-
-// (async () => {
-//     try {
-//         // Initialize DB (authenticate + create tables)
-//         await initDB();
-//         console.log("MySQL initialized");
-
-//         // Start Server
-//         app.listen(PORT, () => console.log("Server running on", PORT));
-
-//     } catch (err) {
-//         console.error("❌ Database connection failed");
-//         console.error(err.message);
-//         process.exit(1); // Stop app if DB is dead
-//     }
-// })();
-
-
 import http from "http";
 import app, { initApp } from "./app.js";
-import { startOtpWorker } from "./workers/otp.worker.js";
-import { startLeadWorker } from "./workers/lead.worker.js";
-import { startInfozitLeadWorker } from "./workers/infozitLead.worker.js";
+import { startOtpWorker }         from "./workers/otp.worker.js";
+import { startUnifiedLeadWorker } from "./core/worker.js";
 
 const PORT = process.env.PORT || 5000;
 
 const server = http.createServer(app);
 
+// Graceful Shutdown 
+const shutdown = (signal) => {
+  console.log(`\n[Server] ${signal} received — shutting down gracefully`);
+  server.close(() => {
+    console.log("[Server] HTTP server closed");
+    process.exit(0);
+  });
+};
+
+process.on("SIGTERM", () => shutdown("SIGTERM"));
+process.on("SIGINT",  () => shutdown("SIGINT"));
+
+process.on("unhandledRejection", (reason) => {
+  console.error("[Server] Unhandled Promise Rejection:", reason);
+});
+
+process.on("uncaughtException", (err) => {
+  console.error("[Server] Uncaught Exception:", err.message);
+  process.exit(1);
+});
+
+// Bootstrap 
 (async () => {
   await initApp();
-  startOtpWorker();
-  startLeadWorker();
-  startInfozitLeadWorker();
+
+  startOtpWorker();           // sends OTP emails
+  startUnifiedLeadWorker();   // CRM sync — handles all registered sites
 
   server.listen(PORT, () => {
-    console.log(` Server running on http://localhost:${PORT}`);
+    console.log(`✅ Server running  → http://localhost:${PORT}`);
+    console.log(`📋 Bull Board      → http://localhost:${PORT}/admin/queues`);
   });
 })();
-
