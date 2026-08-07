@@ -41,10 +41,23 @@ const InfozitWebsiteLead = sequelize.define(
       type: DataTypes.TEXT,
       allowNull: true,
     },
+    status: {
+      type: DataTypes.ENUM(
+        "PENDING_CRM",
+        "RETRYING",
+        "SENT_TO_CRM",
+        "FAILED"
+      ),
+      defaultValue: "PENDING_CRM",
+    },
+    retry_count: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
   },
   {
     tableName: 'infozit_website_leads',
-    timestamps: true, // handles createdAt and updatedAt
+    timestamps: true,
   }
 );
 

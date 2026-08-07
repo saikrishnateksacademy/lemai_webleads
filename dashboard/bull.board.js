@@ -1,7 +1,7 @@
 import { createBullBoard } from "@bull-board/api";
 import { BullMQAdapter } from "@bull-board/api/bullMQAdapter";
 import { ExpressAdapter } from "@bull-board/express";
-import { otpQueue, leadQueue } from "../utils/queue.js";
+import { otpQueue, leadQueue, infozitLeadQueue } from "../utils/queue.js";
 
 const serverAdapter = new ExpressAdapter();
 serverAdapter.setBasePath("/admin/queues");
@@ -9,7 +9,8 @@ serverAdapter.setBasePath("/admin/queues");
 createBullBoard({
   queues: [
     new BullMQAdapter(otpQueue),
-    new BullMQAdapter(leadQueue)
+    new BullMQAdapter(leadQueue),
+    new BullMQAdapter(infozitLeadQueue)
   ],
   serverAdapter
 });

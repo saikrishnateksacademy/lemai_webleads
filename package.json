@@ -7,7 +7,8 @@
     "dev": "nodemon server.js",
     "worker:otp": "nodemon workers/otp.worker.js",
     "worker:lead": "nodemon workers/lead.worker.js",
-    "dev:all": "concurrently \"npm run dev\" \"npm run worker:otp\" \"npm run worker:lead\"",
+    "worker:infozit": "nodemon workers/infozitLead.worker.js",
+    "dev:all": "concurrently \"npm run dev\" \"npm run worker:otp\" \"npm run worker:lead\" \"npm run worker:infozit\"",
     "start": "node server.js"
   },
   "dependencies": {

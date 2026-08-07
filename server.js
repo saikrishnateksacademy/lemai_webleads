@@ -28,13 +28,19 @@
 
 import http from "http";
 import app, { initApp } from "./app.js";
+import { startOtpWorker } from "./workers/otp.worker.js";
+import { startLeadWorker } from "./workers/lead.worker.js";
+import { startInfozitLeadWorker } from "./workers/infozitLead.worker.js";
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000;
 
 const server = http.createServer(app);
 
 (async () => {
   await initApp();
+  startOtpWorker();
+  startLeadWorker();
+  startInfozitLeadWorker();
 
   server.listen(PORT, () => {
     console.log(` Server running on http://localhost:${PORT}`);

@@ -3,3 +3,4 @@ import redis from "./redis.js";
 
 export const otpQueue = new Queue("otp-queue", { connection: redis });
 export const leadQueue = new Queue("lead-queue", { connection: redis });
+export const infozitLeadQueue = new Queue("infozit-lead-queue", { connection: redis });
