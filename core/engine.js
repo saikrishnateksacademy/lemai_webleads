@@ -83,14 +83,14 @@ export const submitLead = async (siteKey, data) => {
       retry_count: 0,
     });
     lead = existingLead;
-    logger.info({ siteKey, [upsertKey]: data[upsertKey] }, "Lead updated (upsert)");
+    logger.debug({ siteKey, [upsertKey]: data[upsertKey] }, "Lead updated (upsert)");
   } else {
     lead = await strategy.model.create({
       ...dbRecord,
       status: "PENDING_CRM",
       retry_count: 0,
     });
-    logger.info({ siteKey, leadId: lead.id }, "New lead created");
+    logger.debug({ siteKey, leadId: lead.id }, "New lead created");
   }
 
   // Delete OTP after successful DB write
@@ -105,7 +105,7 @@ export const submitLead = async (siteKey, data) => {
     QUEUE_JOB_OPTIONS
   );
 
-  logger.info({ siteKey, leadId: lead.id }, "Lead queued for CRM sync");
+  logger.debug({ siteKey, leadId: lead.id }, "Lead queued for CRM sync");
 
   return lead.id;
 };
