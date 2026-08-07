@@ -8,7 +8,7 @@ export const infozitLeadSchema = {
   type: "object",
   required: ["name", "email", "contact"],
   properties: {
-    source: { type: "string", nullable: true },
+    source: { type: ["string", "number"], nullable: true },
     name: { type: "string", minLength: 2, maxLength: 255 },
     email: { type: "string", format: "email" },
     contact: { type: "string", minLength: 6, maxLength: 30 },
