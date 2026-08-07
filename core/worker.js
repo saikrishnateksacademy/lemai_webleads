@@ -37,8 +37,6 @@ const processJob = async (job) => {
   // Build exact CRM payload using site's own toCrmPayload()
   const crmPayload = strategy.toCrmPayload(lead);
 
-  logger.debug({ siteKey, leadId, crmUrl }, "[Worker] Sending lead to CRM");
-
   // POST to CRM
   await axios.post(crmUrl, crmPayload, {
     timeout: CRM_TIMEOUT_MS,
@@ -47,8 +45,6 @@ const processJob = async (job) => {
 
   // Mark lead as successfully sent
   await lead.update({ status: "SENT_TO_CRM", retry_count: 0 });
-
-  logger.debug({ siteKey, leadId }, "[Worker] ✅ Lead sent to CRM successfully");
 };
 
 // Failure Handler

@@ -12,7 +12,7 @@ const schema = {
     source: { type: ["string", "number"], nullable: true },
     name: { type: "string", minLength: 2, maxLength: 255 },
     email: { type: "string", format: "email" },
-    contact: { type: "string", minLength: 6, maxLength: 30 },
+    contact: { type: "string", pattern: "^(\\+?[0-9]{1,4})?[0-9]{10}$" },
     city: { type: "string", nullable: true },
     service: { type: "string", nullable: true },
     occupation: { type: "string", nullable: true },

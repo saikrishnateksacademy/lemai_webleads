@@ -47,7 +47,7 @@ const schema = {
     name: { type: "string", minLength: 2, maxLength: 150 },
     email: { type: "string", format: "email" },
     country_code: { type: "string", pattern: "^\\+[0-9]{1,4}$" },
-    phone_number: { type: "string", pattern: "^[0-9]{6,15}$" },
+    phone_number: { type: "string", pattern: "^[0-9]{10}$" },
     company_name: { type: "string", nullable: true },
     city: { type: "string", nullable: true },
     source_id: { type: ["string", "number"], nullable: true },
