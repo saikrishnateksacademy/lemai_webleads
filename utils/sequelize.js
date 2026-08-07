@@ -11,3 +11,5 @@ const sequelize = connectionString
     });
 
 export default sequelize;
+
+

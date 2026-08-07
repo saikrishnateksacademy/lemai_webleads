@@ -1,7 +1,6 @@
 import sgMail from "@sendgrid/mail";
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-console.log(process.env.SENDGRID_API_KEY)
 
 const buildOtpTemplate = (code) => `
 <table width="100%" cellpadding="0" cellspacing="0" style="background:#f6f9fc;padding:30px;font-family:Arial">

@@ -23,6 +23,7 @@ export const leadSchema = {
 
     company_name: { type: "string", nullable: true },
     city: { type: "string", nullable: true },
+    source_id: { type: "string", nullable: false},
 
     sales_team_size: {
       type: "string",
