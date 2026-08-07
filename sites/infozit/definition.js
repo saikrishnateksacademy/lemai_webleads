@@ -53,5 +53,4 @@ const infozitDefinition = {
 
   crmUrl: undefined,
 };
-
 export default infozitDefinition;
