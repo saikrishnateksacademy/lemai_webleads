@@ -4,6 +4,7 @@ import Source from "./source.model.js";
 // Site Plugin Models 
 import LemaiLead from "../sites/lemai/model.js";
 import InfozitLead from "../sites/infozit/model.js";
+import FutureGenLead from "../sites/futuregen/model.js";
 
 async function initDB() {
   try {
@@ -20,4 +21,4 @@ async function initDB() {
   }
 }
 
-export { sequelize, Source, LemaiLead, InfozitLead, initDB };
+export { sequelize, Source, LemaiLead, InfozitLead, FutureGenLead, initDB };

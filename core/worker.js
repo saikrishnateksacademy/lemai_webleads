@@ -37,11 +37,27 @@ const processJob = async (job) => {
   // Build exact CRM payload using site's own toCrmPayload()
   const crmPayload = strategy.toCrmPayload(lead);
 
+  // console.log("\n=======================================================");
+  // console.log(`[Worker] 🚀 DISPATCHING LEAD TO CRM [Site: ${siteKey}] [Lead ID: ${leadId}]`);
+  // console.log(`[Worker] 🎯 Endpoint URL: ${crmUrl}`);
+  // console.log("[Worker] 📦 Payload:", JSON.stringify(crmPayload, null, 2));
+  // console.log("=======================================================\n");
+
+  // logger.info({ siteKey, leadId, crmUrl, crmPayload }, "[Worker] 🚀 Dispatching lead to CRM");
+
   // POST to CRM
-  await axios.post(crmUrl, crmPayload, {
+  const response = await axios.post(crmUrl, crmPayload, {
     timeout: CRM_TIMEOUT_MS,
     headers: { "Content-Type": "application/json" },
   });
+
+  // console.log("\n=======================================================");
+  // console.log(`[Worker] 🟢 CRM API SUCCESS RESPONSE [Site: ${siteKey}] [Lead ID: ${leadId}]`);
+  // console.log(`[Worker] 🟢 HTTP Status: ${response.status} ${response.statusText}`);
+  // console.log("[Worker] 🟢 Response Data:", JSON.stringify(response.data, null, 2));
+  // console.log("=======================================================\n");
+
+  // logger.info({ siteKey, leadId, status: response.status, data: response.data }, "[Worker] ✅ CRM Response Success");
 
   // Mark lead as successfully sent
   await lead.update({ status: "SENT_TO_CRM", retry_count: 0 });
@@ -51,10 +67,28 @@ const processJob = async (job) => {
 const handleFailure = async (job, err) => {
   const { siteKey, leadId } = job?.data ?? {};
 
-  logger.error(
-    { siteKey, leadId, jobId: job?.id, err: err?.message, attemptsMade: job?.attemptsMade },
-    "[Worker] ❌ Job failed"
-  );
+  // console.log("\n=======================================================");
+  // console.log(`[Worker] 🔴 CRM API FAILED [Site: ${siteKey}] [Lead ID: ${leadId}] [Job: ${job?.id}]`);
+  // console.log(`[Worker] 🔴 Error: ${err?.message}`);
+  // if (err.response) {
+  //   console.log(`[Worker] 🔴 HTTP Status: ${err.response.status} ${err.response.statusText}`);
+  //   console.log("[Worker] 🔴 CRM Error Body:", JSON.stringify(err.response.data, null, 2));
+  // }
+  // console.log(`[Worker] 🔴 Attempt: ${job?.attemptsMade} / ${job?.opts?.attempts ?? 8}`);
+  // console.log("=======================================================\n");
+
+  // logger.error(
+  //   {
+  //     siteKey,
+  //     leadId,
+  //     jobId: job?.id,
+  //     err: err?.message,
+  //     crmStatus: err.response?.status,
+  //     crmResponse: err.response?.data,
+  //     attemptsMade: job?.attemptsMade,
+  //   },
+  //   "[Worker] ❌ Job failed"
+  // );
 
   if (!siteKey || !leadId) return;
 

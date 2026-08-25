@@ -1,5 +1,6 @@
 import lemaiDefinition from "./sites/lemai/definition.js";
 import infozitDefinition from "./sites/infozit/definition.js";
+import futuregenDefinition from "./sites/futuregen/definition.js";
 
 const registry = new Map();
 
@@ -16,6 +17,7 @@ function register(definition) {
 //   Register all sites   
 register(lemaiDefinition);
 register(infozitDefinition);
+register(futuregenDefinition);
 
 
 export const getStrategy = (siteKey) => registry.get(siteKey);
